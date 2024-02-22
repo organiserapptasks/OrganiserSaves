@@ -1,0 +1,8 @@
+on:
+  issues:
+    types: ['opened']
+
+jobs:
+  runs-on: ubuntu-latest
+  run:
+    echo "{ github.event.issue.body }"
