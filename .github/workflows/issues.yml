@@ -1,29 +1,30 @@
-# This is a basic workflow to help you get started with Actions
+name: Edit File on Issue Title Change
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  issues: 
-    types: ["opened"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  issues:
+    types: [opened, edited]
 
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  edit_file:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Get Issue Title
+        id: get_title
+        run: echo "::set-output name=title::${{ github.event.issue.title }}"
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Add your script or steps to edit the file based on the issue title
+      # For example:
+      - name: Edit File
         run: |
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${{ github.event.issue.body }}"
+          echo "${{ steps.get_title.outputs.title }}" > edited_file.txt
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add edited_file.txt
+          git commit -m "Update file based on issue title"
+          git push
