@@ -23,8 +23,8 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "organiserapptasks@gmail.com"
+          git config --local user.name "organiserapptasks"
           git add edited_file.txt
           git commit -m "Update file based on issue title"
           git push
