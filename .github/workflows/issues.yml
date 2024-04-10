@@ -23,8 +23,8 @@ jobs:
         run: |
           git config --local user.email "organiserapptasks@gmail.com"
           git config --local user.name "organiserapptasks"
-          git add edited_file.txt
-          git commit -m "Update file based on issue title"
+          git add save.txt
+          git commit -m "update ${{ github.event.issue.title }}"
           git push https://github.com/${{ github.repository }} HEAD:main
         env:
           PAT_TOKEN: ${{ secrets.AUTH_TOKEN }}
