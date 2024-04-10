@@ -11,17 +11,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
-      - name: Get Issue Title
+      - name: Get issue body
         id: get_title
-        run: echo "::set-output name=title::${{ github.event.issue.title }}"
+        run: echo "::set-output name=title::${{ github.event.issue.body }}"
 
-      # Add your script or steps to edit the file based on the issue title
-      # For example:
-      - name: Edit File
+      - name: Edit save.txt
         run: |
-          echo "${{ steps.get_title.outputs.title }}" > edited_file.txt
+          echo "${{ steps.get_title.outputs.title }}" > save.txt
 
-      - name: Commit and Push Changes
+      - name: Commit + push
         run: |
           git config --local user.email "organiserapptasks@gmail.com"
           git config --local user.name "organiserapptasks"
